@@ -71,7 +71,7 @@
         app:constraint_referenced_ids="editSenha,editEmail" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnCadastro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
