@@ -2,6 +2,7 @@ package com.example.medicaai_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -45,6 +46,7 @@ public class CadastroActivity extends AppCompatActivity {
         if(!email.isEmpty()){
             if(!senha.isEmpty()){
                 criarContaFirebase(email,senha);
+                binding.progressBar.setVisibility(View.VISIBLE);
             }else{
                 Toast.makeText(this, "Informe uma senha.", Toast.LENGTH_SHORT).show();
             }
@@ -57,8 +59,10 @@ public class CadastroActivity extends AppCompatActivity {
                 email, senha
         ).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
+                finish();
                 startActivity(new Intent(this,  MainActivity.class));
             }else{
+                binding.progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(this, "Ocorreu um erro.", Toast.LENGTH_SHORT).show();
             }
         });
