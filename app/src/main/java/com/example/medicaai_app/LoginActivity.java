@@ -35,6 +35,10 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, CadastroActivity.class));
         });
 
+        binding.textRecuperaConta.setOnClickListener(v -> {
+            startActivity(new Intent(this, RecuperaContaActivity.class));
+        });
+
         binding.btnLogin.setOnClickListener(v -> validaDados());
     }
     private void validaDados(){
