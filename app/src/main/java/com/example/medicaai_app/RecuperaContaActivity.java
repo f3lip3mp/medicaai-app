@@ -43,12 +43,13 @@ public class RecuperaContaActivity extends AppCompatActivity {
     private void recuperaContaFirebase(String email){
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                finish();
+                Toast.makeText(this, "E-mail enviado.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this,  MainActivity.class));
             }else{
-                binding.progressBar.setVisibility(View.INVISIBLE);
+
                 Toast.makeText(this, "Ocorreu um erro.", Toast.LENGTH_SHORT).show();
             }
+            binding.progressBar.setVisibility(View.INVISIBLE);
         });
     }
 }
