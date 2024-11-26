@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_inicio"
+        android:title="@string/menu_bottom_bar_inicio"
+        android:icon="@drawable/ic_home_fill"/>
+    <item android:id="@+id/menu_search"
+        android:title="@string/menu_bottom_bar_search"
+        android:icon="@drawable/ic_search_fill"/>
+    <item android:id="@+id/menu_favorito"
+        android:title="@string/menu_bottom_bar_favorito"
+        android:icon="@drawable/ic_heart_fill"/>
+    <item android:id="@+id/menu_perfil"
+        android:title="@string/menu_bottom_bar_perfil"
+        android:icon="@drawable/ic_user_fill"/>
 
 </menu>
