@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        new Handler(getMainLooper()).postDelayed(() -> {
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }, 3000);
     }
 }
