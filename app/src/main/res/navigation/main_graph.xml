@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/inicioFragment">
+    app:startDestination="@id/menu_inicio">
 
     <fragment
-        android:id="@+id/inicioFragment"
+        android:id="@+id/menu_inicio"
         android:name="com.example.medicaai_app.bottom_bar.InicioFragment"
         android:label="fragment_inicio"
         tools:layout="@layout/fragment_inicio" />
     <fragment
-        android:id="@+id/buscaFragment"
+        android:id="@+id/menu_search"
         android:name="com.example.medicaai_app.bottom_bar.BuscaFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
-        android:id="@+id/favoritoFragment"
+        android:id="@+id/menu_favorito"
         android:name="com.example.medicaai_app.bottom_bar.FavoritoFragment"
         android:label="fragment_favorito"
         tools:layout="@layout/fragment_favorito" />
     <fragment
-        android:id="@+id/perfilFragment"
+        android:id="@+id/menu_perfil"
         android:name="com.example.medicaai_app.bottom_bar.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
