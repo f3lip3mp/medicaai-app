@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         ).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 finish();
-                startActivity(new Intent(this,  MainActivity.class));
+                startActivity(new Intent(this,  InicioActivity.class));
             }else{
                 binding.progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(this, "Ocorreu um erro.", Toast.LENGTH_SHORT).show();

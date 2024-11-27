@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Medicaaiapp"
         tools:targetApi="31">
         <activity
+            android:name=".InicioActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
