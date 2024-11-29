@@ -16,8 +16,8 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
     private final ArrayList<Medicamento> medicamentoList;
     private final Context context;
 
-    public MedicamentoAdapter(ArrayList<Medicamento> foodList, Context context) {
-        this.foodList = foodList;
+    public MedicamentoAdapter(ArrayList<Medicamento> medicamentoList, Context context) {
+        this.medicamentoList = medicamentoList;
         this.context = context;
     }
 
@@ -31,12 +31,15 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MedicamentoViewHolder holder, int position) {
-        holder.binding.imgMedicamento.setBackgroundResource(medicamentoList.get(position).ge);
+        holder.binding.imgMedicamento.setBackgroundResource(medicamentoList.get(position).getMedicamentoImg());
+        holder.binding.txtMedicamentoNome.setText(medicamentoList.get(position).getMedicamentoNome());
+        holder.binding.txtMedicamentoDescricao.setText(medicamentoList.get(position).getMedicamentoDescricao());
+        holder.binding.txtMedicamentoIndicacao.setText(medicamentoList.get(position).getMedicamentoIndicacao());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return medicamentoList.size();
     }
 
     public static class MedicamentoViewHolder extends RecyclerView.ViewHolder{
