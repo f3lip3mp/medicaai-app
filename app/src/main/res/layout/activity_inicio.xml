@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InicioActivity">
+    tools:context=".InicioActivity"
+    android:background="#F2F2F2">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -29,6 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:labelVisibilityMode="labeled"
+        android:elevation="10dp"
+        android:background="@drawable/bg_bottombar"
         app:menu="@menu/menu_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowBackground" type="">#DEC4C2</item>
         <item name="colorPrimary">#32CCD3</item>
+        <item name="android:statusBarColor">#32CCD3</item>
 
     </style>
 

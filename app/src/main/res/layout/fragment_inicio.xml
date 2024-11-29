@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottom_bar.InicioFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context=".bottom_bar.InicioFragment"
+    android:orientation="vertical">
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewMedicamento"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Inicio" />
-
-</FrameLayout>
+    
+    
+</androidx.appcompat.widget.LinearLayoutCompat>

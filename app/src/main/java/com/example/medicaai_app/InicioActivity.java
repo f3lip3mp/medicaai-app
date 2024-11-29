@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.medicaai_app.databinding.ActivityInicioBinding;
 import com.example.medicaai_app.databinding.ActivityLoginBinding;

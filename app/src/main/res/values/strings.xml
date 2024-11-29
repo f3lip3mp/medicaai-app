@@ -6,4 +6,5 @@
     <string name="menu_bottom_bar_search">Procurar</string>
     <string name="menu_bottom_bar_favorito">Favoritos</string>
     <string name="menu_bottom_bar_perfil">Perfil</string>
+    <string name="title_activity_barra_procura">BarraProcura</string>
 </resources>
