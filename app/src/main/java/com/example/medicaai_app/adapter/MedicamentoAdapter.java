@@ -13,7 +13,7 @@ import com.example.medicaai_app.model.Medicamento;
 import java.util.ArrayList;
 
 public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.MedicamentoViewHolder> {
-    private final ArrayList<Medicamento> foodList;
+    private final ArrayList<Medicamento> medicamentoList;
     private final Context context;
 
     public MedicamentoAdapter(ArrayList<Medicamento> foodList, Context context) {
@@ -31,7 +31,7 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MedicamentoViewHolder holder, int position) {
-
+        holder.binding.imgMedicamento.setBackgroundResource(medicamentoList.get(position).ge);
     }
 
     @Override

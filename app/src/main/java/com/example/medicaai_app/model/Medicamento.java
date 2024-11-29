@@ -1,8 +1,26 @@
 package com.example.medicaai_app.model;
 
 public class Medicamento {
+    int medicamentoImg;
     String medicamentoNome;
     String medicamentoDescricao;
+    String medicamentoIndicacao;
+
+    public int getMedicamentoImg() {
+        return medicamentoImg;
+    }
+
+    public void setMedicamentoImg(int medicamentoImg) {
+        this.medicamentoImg = medicamentoImg;
+    }
+
+    public String getMedicamentoIndicacao() {
+        return medicamentoIndicacao;
+    }
+
+    public void setMedicamentoIndicacao(String medicamentoIndicacao) {
+        this.medicamentoIndicacao = medicamentoIndicacao;
+    }
 
     public String getMedicamentoNome() {
         return medicamentoNome;
