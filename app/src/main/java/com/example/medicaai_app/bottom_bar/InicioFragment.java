@@ -3,64 +3,52 @@ package com.example.medicaai_app.bottom_bar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.medicaai_app.R;
+import com.example.medicaai_app.adapter.MedicamentoAdapter;
+import com.example.medicaai_app.model.Medicamento;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link InicioFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class InicioFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerViewMedicamento;
+    private MedicamentoAdapter medicamentoAdapter;
+    private ArrayList<Medicamento> medicamentoList;
 
     public InicioFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InicioFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InicioFragment newInstance(String param1, String param2) {
-        InicioFragment fragment = new InicioFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+        // Inflar o layout do fragment
+        View view = inflater.inflate(R.layout.fragment_inicio, container, false);
+
+        // Configurar o RecyclerView
+        recyclerViewMedicamento = view.findViewById(R.id.RecyclerViewMedicamento);
+        recyclerViewMedicamento.setLayoutManager(new LinearLayoutManager(getContext()));
+        medicamentoList = getMedicamentoList();
+        medicamentoAdapter = new MedicamentoAdapter(medicamentoList, getContext());
+        recyclerViewMedicamento.setAdapter(medicamentoAdapter);
+
+        return view;
+    }
+
+    private ArrayList<Medicamento> getMedicamentoList() {
+        ArrayList<Medicamento> list = new ArrayList<>();
+        list.add(new Medicamento(R.drawable.medica_ai_logo, "Paracetamol",
+                "Reduz febre e alivia dores leves a moderadas.", "Analgésico/Antitérmico"));
+        list.add(new Medicamento(R.drawable.medica_ai_logo, "Adenosina",
+                "Tratamento de taquicardia paroxística supraventricular.", "Antiarrítmico"));
+        // Adicione outros medicamentos aqui...
+        return list;
     }
 }

@@ -6,13 +6,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.medicaai_app.databinding.MedicamentoItemBinding;
 import com.example.medicaai_app.model.Medicamento;
 
 import java.util.ArrayList;
 
-public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.MedicamentoViewHolder> {
+public class MedicamentoAdapter extends Adapter<MedicamentoAdapter.MedicamentoViewHolder> {
     private final ArrayList<Medicamento> medicamentoList;
     private final Context context;
 

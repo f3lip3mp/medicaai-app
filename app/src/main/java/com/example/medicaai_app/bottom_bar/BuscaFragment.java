@@ -3,64 +3,95 @@ package com.example.medicaai_app.bottom_bar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.medicaai_app.R;
+import com.example.medicaai_app.adapter.MedicamentoAdapter;
+import com.example.medicaai_app.model.Medicamento;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BuscaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class BuscaFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText searchBar;
+    private RecyclerView recyclerViewSearchResults;
+    private MedicamentoAdapter medicamentoAdapter;
+    private ArrayList<Medicamento> medicamentoList = new ArrayList<>();
+    private ArrayList<Medicamento> filteredList = new ArrayList<>();
 
     public BuscaFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BuscaFragment newInstance(String param1, String param2) {
-        BuscaFragment fragment = new BuscaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        // Inflar o layout do fragment
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        searchBar = view.findViewById(R.id.search_bar);
+        recyclerViewSearchResults = view.findViewById(R.id.recyclerViewSearchResults);
+        recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Preencher a lista de medicamentos
+        getMedicamento();
+
+        // Configurar o adaptador
+        medicamentoAdapter = new MedicamentoAdapter(filteredList, getContext());
+        recyclerViewSearchResults.setAdapter(medicamentoAdapter);
+
+        // Filtrar medicamentos com base no texto da busca
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterMedicamentos(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        return view;
+    }
+
+    private void getMedicamento() {
+        // Adicione os medicamentos à lista original
+        medicamentoList.add(new Medicamento(
+                R.drawable.medica_ai_logo,
+                "Paracetamol",
+                "Indicado em adultos para a redução da febre e para o alívio temporário de dores leves a moderadas.",
+                "Analgésico/Antitérmico"
+        ));
+        medicamentoList.add(new Medicamento(
+                R.drawable.medica_ai_logo,
+                "Adenosina",
+                "Indicado para tratamento de Herpes zoster e demais infecções de pele e mucosas causadas pelo vírus Herpes simplex.",
+                "Antiviral"
+        ));
+        // Adicione outros medicamentos...
+
+        // Inicialmente, a lista filtrada contém todos os medicamentos
+        filteredList.addAll(medicamentoList);
+    }
+
+    private void filterMedicamentos(String query) {
+        filteredList.clear();
+        for (Medicamento medicamento : medicamentoList) {
+            if (medicamento.getMedicamentoNome().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(medicamento);
+            }
+        }
+        medicamentoAdapter.notifyDataSetChanged();
     }
 }
