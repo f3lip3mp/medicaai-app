@@ -48,6 +48,9 @@ public class BuscaFragment extends Fragment {
         medicamentoAdapter = new MedicamentoAdapter(filteredList, getContext());
         recyclerViewSearchResults.setAdapter(medicamentoAdapter);
 
+        // Inicialmente, o RecyclerView fica invisível
+        recyclerViewSearchResults.setVisibility(View.GONE);
+
         // Filtrar medicamentos com base no texto da busca
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -55,7 +58,12 @@ public class BuscaFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterMedicamentos(s.toString());
+                if (s.length() > 0) {
+                    recyclerViewSearchResults.setVisibility(View.VISIBLE); // Mostra resultados
+                    filterMedicamentos(s.toString());
+                } else {
+                    recyclerViewSearchResults.setVisibility(View.GONE); // Esconde resultados
+                }
             }
 
             @Override
@@ -64,6 +72,7 @@ public class BuscaFragment extends Fragment {
 
         return view;
     }
+
 
     private void getMedicamento() {
         // Adicione os medicamentos à lista original
