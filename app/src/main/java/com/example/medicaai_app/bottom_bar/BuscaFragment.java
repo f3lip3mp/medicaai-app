@@ -60,7 +60,7 @@ public class BuscaFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     recyclerViewSearchResults.setVisibility(View.VISIBLE); // Mostra resultados
-                    filterMedicamentos(s.toString());
+                    filtrarMedicamento(s.toString());
                 } else {
                     recyclerViewSearchResults.setVisibility(View.GONE); // Esconde resultados
                 }
@@ -94,13 +94,15 @@ public class BuscaFragment extends Fragment {
         filteredList.addAll(medicamentoList);
     }
 
-    private void filterMedicamentos(String query) {
+    private void filtrarMedicamento(String query) {
         filteredList.clear();
         for (Medicamento medicamento : medicamentoList) {
-            if (medicamento.getMedicamentoNome().toLowerCase().contains(query.toLowerCase())) {
+            // Verifica se o nome do medicamento começa com o texto digitado
+            if (medicamento.getMedicamentoNome().toLowerCase().startsWith(query.toLowerCase())) {
                 filteredList.add(medicamento);
             }
         }
         medicamentoAdapter.notifyDataSetChanged();
     }
+
 }
