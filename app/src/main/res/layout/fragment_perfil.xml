@@ -1,14 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_perfil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottom_bar.PerfilFragment">
+    tools:context=".PerfilFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Perfil" />
+    <!-- Botão Dados Pessoais -->
+    <Button
+        android:id="@+id/btnDadosPessoais"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dados Pessoais"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCadastroMedicamento"/>
 
-</FrameLayout>
+    <!-- Botão Cadastro de Medicamentos (Visível somente para admin) -->
+    <Button
+        android:id="@+id/btnCadastroMedicamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastro de Medicamentos"
+        app:layout_constraintTop_toBottomOf="@id/btnDadosPessoais"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogoff"/>
+
+    <!-- Botão Logoff -->
+    <Button
+        android:id="@+id/btnLogoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fazer Logoff"
+        app:layout_constraintTop_toBottomOf="@id/btnCadastroMedicamento"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
