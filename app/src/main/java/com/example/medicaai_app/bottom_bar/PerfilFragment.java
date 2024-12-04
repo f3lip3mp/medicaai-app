@@ -49,11 +49,7 @@ public class PerfilFragment extends Fragment {
         // Aqui você deve buscar no banco de dados do Firebase ou usar algum outro método para verificar o tipo de usuário
         // Exemplo: Verifique o campo "tipo_usuario" no Firebase Firestore
 
-        if ("admin".equals(tipoUsuario)) {
-            btnCadastroMedicamento.setVisibility(View.VISIBLE);  // Torna o botão visível para admin
-        } else {
-            btnCadastroMedicamento.setVisibility(View.GONE);    // Esconde o botão para usuários normais
-        }
+
     }
 
     private void irParaCadastroMedicamento() {
