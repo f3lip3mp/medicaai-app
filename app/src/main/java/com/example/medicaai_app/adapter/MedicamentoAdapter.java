@@ -32,9 +32,10 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
     private final Context context;
 
     public MedicamentoAdapter(ArrayList<Medicamento> medicamentoList, Context context) {
-        this.medicamentoList = medicamentoList;
+        this.medicamentoList = (medicamentoList != null) ? medicamentoList : new ArrayList<>();
         this.context = context;
     }
+
 
     @NonNull
     @Override

@@ -57,16 +57,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginFirebase(String email, String senha){
-        mAuth.signInWithEmailAndPassword(
-                email, senha
-        ).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                finish();
-                startActivity(new Intent(this,  InicioActivity.class));
-            }else{
-                binding.progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(this, "Ocorreu um erro.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mAuth.signInWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        finish();
+                        startActivity(new Intent(this, InicioActivity.class));
+                    } else {
+                        binding.progressBar.setVisibility(View.INVISIBLE);
+                        String erro = task.getException() != null ? task.getException().getMessage() : "Erro desconhecido.";
+                        Toast.makeText(this, "Erro ao fazer login: " + erro, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

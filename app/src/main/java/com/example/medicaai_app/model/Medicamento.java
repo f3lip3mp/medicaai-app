@@ -6,6 +6,7 @@ public class Medicamento {
     String medicamentoDescricao;
     String medicamentoIndicacao;
 
+    public Medicamento() {}
     public Medicamento(int medicamentoImg, String medicamentoNome, String medicamentoDescricao, String medicamentoIndicacao) {
         this.medicamentoImg = medicamentoImg;
         this.medicamentoNome = medicamentoNome;
