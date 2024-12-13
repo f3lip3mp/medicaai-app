@@ -13,34 +13,21 @@ public class Medicamento {
     private String medicamentoIndicacao;
     private String classeFarmaceutica;
     private String contraIndicacao;
+    private String anotacao;
 
     // Construtor vazio necessário para o Firestore
     public Medicamento() {}
 
-    public String getClasseFarmaceutica() {
-        return classeFarmaceutica;
-    }
-
-    public void setClasseFarmaceutica(String classeFarmaceutica) {
-        this.classeFarmaceutica = classeFarmaceutica;
-    }
-
-    public String getContraIndicacao() {
-        return contraIndicacao;
-    }
-
-    public void setContraIndicacao(String contraIndicacao) {
-        this.contraIndicacao = contraIndicacao;
-    }
 
     // Construtor para criar um objeto Medicamento
-    public Medicamento(int medicamentoImg, String medicamentoNome, String medicamentoDescricao, String medicamentoIndicacao, String classeFarmaceutica, String contraIndicacao) {
+    public Medicamento(int medicamentoImg, String medicamentoNome, String medicamentoDescricao, String medicamentoIndicacao, String classeFarmaceutica, String contraIndicacao, String anotacao) {
         this.medicamentoImg = medicamentoImg;
         this.medicamentoNome = medicamentoNome;
         this.medicamentoDescricao = medicamentoDescricao;
         this.medicamentoIndicacao = medicamentoIndicacao;
         this.classeFarmaceutica = classeFarmaceutica;
         this.contraIndicacao = contraIndicacao;
+        this.anotacao = anotacao;
     }
 
     // Getters e Setters para cada campo
@@ -83,5 +70,30 @@ public class Medicamento {
 
     public void setMedicamentoIndicacao(String medicamentoIndicacao) {
         this.medicamentoIndicacao = medicamentoIndicacao;
+    }
+
+    public String getClasseFarmaceutica() {
+        return classeFarmaceutica;
+    }
+
+    public void setClasseFarmaceutica(String classeFarmaceutica) {
+        this.classeFarmaceutica = classeFarmaceutica;
+    }
+
+    public String getContraIndicacao() {
+        return contraIndicacao;
+    }
+
+    public void setContraIndicacao(String contraIndicacao) {
+        this.contraIndicacao = contraIndicacao;
+    }
+
+    // Getter e Setter para anotação
+    public String getAnotacao() {
+        return anotacao;
+    }
+
+    public void setAnotacao(String anotacao) {
+        this.anotacao = anotacao;
     }
 }

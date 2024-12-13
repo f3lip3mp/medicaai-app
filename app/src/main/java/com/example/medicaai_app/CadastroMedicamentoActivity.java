@@ -28,6 +28,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
         medicamento.setMedicamentoNome(binding.editNome.getText().toString());
         medicamento.setMedicamentoDescricao(binding.editDescricao.getText().toString());
         medicamento.setMedicamentoIndicacao(binding.editIndicacao.getText().toString());
+        medicamento.setContraIndicacao(binding.editContraIndicacao.getText().toString());
 
         // Criar uma instância do FirestoreRepository e passar o contexto
         FirestoreRepository firestoreRepository = new FirestoreRepository(CadastroMedicamentoActivity.this);

@@ -1,112 +1,115 @@
 package com.example.medicaai_app.bottom_bar;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicaai_app.R;
 import com.example.medicaai_app.adapter.MedicamentoAdapter;
 import com.example.medicaai_app.model.Medicamento;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BuscaFragment extends Fragment {
 
-    private EditText searchBar;
-    private RecyclerView recyclerViewSearchResults;
-    private MedicamentoAdapter medicamentoAdapter;
-    private ArrayList<Medicamento> medicamentoList = new ArrayList<>();
-    private ArrayList<Medicamento> filteredList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private MedicamentoAdapter adapter;
+    private FirebaseFirestore db;
+    private EditText searchEditText;
 
-    public BuscaFragment() {
-        // Required empty public constructor
-    }
+    private List<Medicamento> medicamentoList = new ArrayList<>();
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflar o layout do fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        searchBar = view.findViewById(R.id.search_bar);
-        recyclerViewSearchResults = view.findViewById(R.id.recyclerViewSearchResults);
-        recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(getContext()));
+        // Inicializando o RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerViewSearchResults);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Preencher a lista de medicamentos
-        getMedicamento();
+        // Inicializando o EditText de busca
+        searchEditText = view.findViewById(R.id.search_bar);
 
-        // Configurar o adaptador
-        medicamentoAdapter = new MedicamentoAdapter(filteredList, getContext());
-        recyclerViewSearchResults.setAdapter(medicamentoAdapter);
+        // Inicializando o Firestore
+        db = FirebaseFirestore.getInstance();
 
-        // Inicialmente, o RecyclerView fica invisível
-        recyclerViewSearchResults.setVisibility(View.GONE);
+        // Configurando o Adapter
+        adapter = new MedicamentoAdapter(new ArrayList<>(), getContext());
+        recyclerView.setAdapter(adapter);
 
-        // Filtrar medicamentos com base no texto da busca
-        searchBar.addTextChangedListener(new TextWatcher() {
+        // Carregar medicamentos iniciais
+        carregarMedicamentos();
+
+        // Configurar filtro de busca
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    recyclerViewSearchResults.setVisibility(View.VISIBLE); // Mostra resultados
-                    filtrarMedicamento(s.toString());
-                } else {
-                    recyclerViewSearchResults.setVisibility(View.GONE); // Esconde resultados
-                }
+                filtrarMedicamentos(s.toString().trim());  // Chama o filtro a cada alteração
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
+
         return view;
     }
 
-
-    private void getMedicamento() {
-        // Adicione os medicamentos à lista original
-        medicamentoList.add(new Medicamento(
-                R.drawable.medica_ai_logo,
-                "Paracetamol",
-                "Indicado em adultos para a redução da febre e para o alívio temporário de dores leves a moderadas.",
-                "Analgésico/Antitérmico",
-                "Analgésico/Antitérmico",
-                "Não indicado em suspeita de dengue"
-        ));
-        medicamentoList.add(new Medicamento(
-                R.drawable.medica_ai_logo,
-                "Adenosina",
-                "Indicado para tratamento de Herpes zoster e demais infecções de pele e mucosas causadas pelo vírus Herpes simplex.",
-                "Antiviral",
-                "Analgésico/Antitérmico",
-                "Não indicado em suspeita de dengue"
-        ));
-        // Adicione outros medicamentos...
-
-        // Inicialmente, a lista filtrada contém todos os medicamentos
-        filteredList.addAll(medicamentoList);
+    private void carregarMedicamentos() {
+        db.collection("medicamentos")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        medicamentoList.clear();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            Medicamento medicamento = document.toObject(Medicamento.class);
+                            medicamentoList.add(medicamento);
+                        }
+                        adapter.updateMedicamentos(medicamentoList);
+                    } else {
+                        Toast.makeText(getContext(), "Nenhum medicamento encontrado.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Erro ao carregar medicamentos: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                });
     }
 
-    private void filtrarMedicamento(String query) {
-        filteredList.clear();
-        for (Medicamento medicamento : medicamentoList) {
-            // Verifica se o nome do medicamento começa com o texto digitado
-            if (medicamento.getMedicamentoNome().toLowerCase().startsWith(query.toLowerCase())) {
-                filteredList.add(medicamento);
+
+    private void filtrarMedicamentos(String texto) {
+        List<Medicamento> medicamentosFiltrados = new ArrayList<>();
+        if (texto.isEmpty()) {
+            // Se o campo de busca estiver vazio, mostrar todos os medicamentos
+            medicamentosFiltrados.addAll(medicamentoList);
+        } else {
+            // Filtrar medicamentos com base no texto digitado
+            for (Medicamento medicamento : medicamentoList) {
+                if (medicamento.getMedicamentoNome().toLowerCase().contains(texto.toLowerCase())) {
+                    medicamentosFiltrados.add(medicamento);
+                }
             }
         }
-        medicamentoAdapter.notifyDataSetChanged();
+        adapter.updateMedicamentos(medicamentosFiltrados);
     }
 
 }

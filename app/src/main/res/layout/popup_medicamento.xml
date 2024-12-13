@@ -72,7 +72,7 @@
                 android:id="@+id/txtIndicacaoDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Indicação: Tratamento de infecções bacterianas"
+                android:text="Indicação:"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp" />
 
@@ -87,13 +87,23 @@
 
             <!-- Anotações -->
             <EditText
-                android:id="@+id/edtAnotacoes"
+                android:id="@+id/editTextAnotacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Escreva suas anotações aqui..."
+                android:hint="Digite sua anotação aqui"
                 android:background="@drawable/rounded_edittext"
-                android:padding="12dp"
-                android:layout_marginBottom="8dp" />
+                android:padding="10dp"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnSalvarAnotacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salvar"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/white" />
+
 
         </LinearLayout>
     </ScrollView>
