@@ -1,54 +1,75 @@
 package com.example.medicaai_app.bottom_bar;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.medicaai_app.R;
 import com.example.medicaai_app.adapter.MedicamentoAdapter;
 import com.example.medicaai_app.model.Medicamento;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InicioFragment extends Fragment {
 
-    private RecyclerView recyclerViewMedicamento;
-    private MedicamentoAdapter medicamentoAdapter;
-    private ArrayList<Medicamento> medicamentoList;
-
-    public InicioFragment() {
-        // Required empty public constructor
-    }
+    private RecyclerView recyclerView;
+    private MedicamentoAdapter adapter;
+    private FirebaseFirestore db;
+    private List<Medicamento> medicamentoList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflar o layout do fragment
+        // Infla o layout do fragment
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        // Configurar o RecyclerView
-        recyclerViewMedicamento = view.findViewById(R.id.RecyclerViewMedicamento);
-        recyclerViewMedicamento.setLayoutManager(new LinearLayoutManager(getContext()));
-        medicamentoList = getMedicamentoList();
-        medicamentoAdapter = new MedicamentoAdapter(medicamentoList, getContext());
-        recyclerViewMedicamento.setAdapter(medicamentoAdapter);
+        // Inicializando o Firestore
+        db = FirebaseFirestore.getInstance();
+
+        // Inicializando o RecyclerView
+        recyclerView = view.findViewById(R.id.RecyclerViewMedicamento); // Referência ao RecyclerView no layout
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext())); // Usando requireContext()
+
+        // Inicializando a lista e o Adapter
+        medicamentoList = new ArrayList<>();
+        adapter = new MedicamentoAdapter((ArrayList<Medicamento>) medicamentoList, requireContext()); // Usando requireContext() aqui
+        recyclerView.setAdapter(adapter);
+
+        // Carregar os medicamentos do Firestore
+        carregarMedicamentos();
 
         return view;
     }
 
-    private ArrayList<Medicamento> getMedicamentoList() {
-        ArrayList<Medicamento> list = new ArrayList<>();
-        list.add(new Medicamento(R.drawable.medica_ai_logo, "Paracetamol",
-                "Reduz febre e alivia dores leves a moderadas.", "Analgésico/Antitérmico"));
-        list.add(new Medicamento(R.drawable.medica_ai_logo, "Adenosina",
-                "Tratamento de taquicardia paroxística supraventricular.", "Antiarrítmico"));
-        // Adicione outros medicamentos aqui...
-        return list;
+    private void carregarMedicamentos() {
+        db.collection("medicamentos")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        medicamentoList.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Medicamento medicamento = document.toObject(Medicamento.class);
+                            medicamentoList.add(medicamento);
+                        }
+                        // Atualiza o adapter com a lista de medicamentos
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(requireContext(), "Erro ao carregar medicamentos", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
+
+
+
+

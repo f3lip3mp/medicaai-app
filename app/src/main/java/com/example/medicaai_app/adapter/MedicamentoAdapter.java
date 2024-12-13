@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import com.example.medicaai_app.MedicamentoDialogFragment;
 import com.example.medicaai_app.databinding.MedicamentoItemBinding;
 import com.example.medicaai_app.model.Medicamento;
 
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.MedicamentoViewHolder> {
     private final ArrayList<Medicamento> medicamentoList;
@@ -57,11 +60,20 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
 
         // Set click listener for "Curtir" button
         holder.binding.btnCurtir.setOnClickListener(v -> salvarFavoritoNoFirebase(medicamento));
+
+        holder.itemView.setOnClickListener(v -> {
+            FragmentActivity activity = (FragmentActivity) context;
+            MedicamentoDialogFragment dialog = new MedicamentoDialogFragment(medicamento);
+            dialog.show(activity.getSupportFragmentManager(), "MedicamentoDialog");
+        });
     }
 
     @Override
     public int getItemCount() {
         return medicamentoList.size();
+    }
+
+    public void updateMedicamentos(List<Medicamento> medicamentos) {
     }
 
     public static class MedicamentoViewHolder extends RecyclerView.ViewHolder {
@@ -92,4 +104,6 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
                 .addOnFailureListener(e ->
                         Toast.makeText(context, "Erro ao salvar favorito: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
+
+
 }

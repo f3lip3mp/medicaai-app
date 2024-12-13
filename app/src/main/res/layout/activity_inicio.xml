@@ -21,6 +21,18 @@
         app:navGraph="@navigation/main_graph"
         app:defaultNavHost="true" />
 
+    <!-- RecyclerView para exibir os medicamentos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewMedicamento"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
     <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btnv"

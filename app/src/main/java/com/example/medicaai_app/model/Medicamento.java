@@ -1,17 +1,36 @@
 package com.example.medicaai_app.model;
 
-public class Medicamento {
-    int medicamentoImg;
-    String medicamentoNome;
-    String medicamentoDescricao;
-    String medicamentoIndicacao;
+import com.google.firebase.firestore.DocumentId;
 
+public class Medicamento {
+
+    @DocumentId // A anotação para o ID do documento no Firestore
+    private String id; // Campo para armazenar o ID do medicamento no Firestore
+
+    private int medicamentoImg;
+    private String medicamentoNome;
+    private String medicamentoDescricao;
+    private String medicamentoIndicacao;
+
+    // Construtor vazio necessário para o Firestore
     public Medicamento() {}
+
+    // Construtor para criar um objeto Medicamento
     public Medicamento(int medicamentoImg, String medicamentoNome, String medicamentoDescricao, String medicamentoIndicacao) {
         this.medicamentoImg = medicamentoImg;
         this.medicamentoNome = medicamentoNome;
         this.medicamentoDescricao = medicamentoDescricao;
         this.medicamentoIndicacao = medicamentoIndicacao;
+    }
+
+    // Getters e Setters para cada campo
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getMedicamentoImg() {
@@ -20,14 +39,6 @@ public class Medicamento {
 
     public void setMedicamentoImg(int medicamentoImg) {
         this.medicamentoImg = medicamentoImg;
-    }
-
-    public String getMedicamentoIndicacao() {
-        return medicamentoIndicacao;
-    }
-
-    public void setMedicamentoIndicacao(String medicamentoIndicacao) {
-        this.medicamentoIndicacao = medicamentoIndicacao;
     }
 
     public String getMedicamentoNome() {
@@ -44,5 +55,13 @@ public class Medicamento {
 
     public void setMedicamentoDescricao(String medicamentoDescricao) {
         this.medicamentoDescricao = medicamentoDescricao;
+    }
+
+    public String getMedicamentoIndicacao() {
+        return medicamentoIndicacao;
+    }
+
+    public void setMedicamentoIndicacao(String medicamentoIndicacao) {
+        this.medicamentoIndicacao = medicamentoIndicacao;
     }
 }
