@@ -80,13 +80,17 @@ public class BuscaFragment extends Fragment {
                 R.drawable.medica_ai_logo,
                 "Paracetamol",
                 "Indicado em adultos para a redução da febre e para o alívio temporário de dores leves a moderadas.",
-                "Analgésico/Antitérmico"
+                "Analgésico/Antitérmico",
+                "Analgésico/Antitérmico",
+                "Não indicado em suspeita de dengue"
         ));
         medicamentoList.add(new Medicamento(
                 R.drawable.medica_ai_logo,
                 "Adenosina",
                 "Indicado para tratamento de Herpes zoster e demais infecções de pele e mucosas causadas pelo vírus Herpes simplex.",
-                "Antiviral"
+                "Antiviral",
+                "Analgésico/Antitérmico",
+                "Não indicado em suspeita de dengue"
         ));
         // Adicione outros medicamentos...
 

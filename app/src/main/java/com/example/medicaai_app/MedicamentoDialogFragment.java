@@ -4,43 +4,58 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.medicaai_app.model.Medicamento;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MedicamentoDialogFragment extends DialogFragment {
 
     private Medicamento medicamento;
+    private ImageButton btnFechar;
+    private FloatingActionButton btnFavoritar;
+    private EditText edtAnotacoes;
 
     public MedicamentoDialogFragment(Medicamento medicamento) {
         this.medicamento = medicamento;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_medicamento, container, false);
 
-        // Referências aos elementos do layout
+        // Configurar visualizações
         ImageView imgMedicamento = view.findViewById(R.id.imgMedicamentoDetalhe);
-        TextView txtNome = view.findViewById(R.id.txtMedicamentoNomeDetalhe);
-        TextView txtDescricao = view.findViewById(R.id.txtMedicamentoDescricaoDetalhe);
-        Button btnFechar = view.findViewById(R.id.btnFechar);
+        TextView txtNome = view.findViewById(R.id.txtNomeDetalhe);
+        TextView txtClasseFarmaceutica = view.findViewById(R.id.txtClasseFarmaceutica);
+        TextView txtIndicacao = view.findViewById(R.id.txtIndicacaoDetalhe);
+        TextView txtContraIndicacao = view.findViewById(R.id.txtContraIndicacao);
+        btnFechar = view.findViewById(R.id.btnFechar);
+        btnFavoritar = view.findViewById(R.id.btnFavoritar);
+        edtAnotacoes = view.findViewById(R.id.edtAnotacoes);
 
-        // Define os valores do medicamento
+        // Configura os dados do medicamento
         txtNome.setText(medicamento.getMedicamentoNome());
-        txtDescricao.setText(medicamento.getMedicamentoDescricao());
-        imgMedicamento.setImageResource(medicamento.getMedicamentoImg()); // Imagem local, altere conforme necessário.
+        txtClasseFarmaceutica.setText("Classe: " + medicamento.getClasseFarmaceutica());
+        txtIndicacao.setText("Indicação: " + medicamento.getMedicamentoIndicacao());
+        txtContraIndicacao.setText("Contraindicação: " + medicamento.getContraIndicacao());
 
-        // Fecha o DialogFragment
+        // Implementar clique no botão fechar
         btnFechar.setOnClickListener(v -> dismiss());
+
+        // Implementar botão favoritar
+        btnFavoritar.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Medicamento favoritado!", Toast.LENGTH_SHORT).show();
+            // Salvar no Firebase ou banco local
+        });
 
         return view;
     }
